@@ -50,11 +50,14 @@ class BraceAnnotation(Scene):
 class BooleanOperations(Scene):
     def construct(self):
         text = MarkupText("<u>Boolean Operations</u>")
-        text.shift(UP*3 + LEFT*3)
+        text.align_on_border(UP + LEFT)
 
-        s1 = Ellipse(3, 4.5, color=BLUE, fill_opacity=0.6).shift(LEFT*3)
-        s2 = Ellipse(3, 4.5, color=RED, fill_opacity=0.6).shift(LEFT*2)
-        self.add(text, s1, s2)
+        s1 = Ellipse(3, 4.5, color=BLUE, fill_opacity=0.6)
+        s2 = Ellipse(3, 4.5, color=RED, fill_opacity=0.6).shift(RIGHT*2)
+        group = Group(s1, s2)
+        group.next_to(text, DOWN, buff=LARGE_BUFF)
+
+        self.add(text, group)
         self.pause(0.5)
 
         ops = [
