@@ -66,8 +66,19 @@ class HelloText(Scene):
         # MarkupText - Compile text as pango markup, see docs
         text = MarkupText(f'<b>Hello</b> <tt>World</tt><span fgcolor="{RED}">!</span>')
         quadratic = MathTex(r"\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}")
-        # quadratic.next_to(text, DOWN)
 
-        g = VGroup(text, quadratic).arrange(DOWN)
+        # MathTex is in the align* env by default
+        alignment = MathTex(r"f(x) &= 3 + 2 + 1 \\ &= 6")
+
+        # Coloring
+        eqn = MathTex(
+            r"e^x = 1 + x + \frac{1}{2} x^2 + \dots",
+            substrings_to_isolate="x",
+        )
+        eqn.set_color_by_tex("x", YELLOW)
+
+        g = VGroup(text, quadratic, alignment, eqn).arrange(DOWN)
         self.play(Create(g))
         self.wait()
+
+
