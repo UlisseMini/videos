@@ -46,3 +46,34 @@ class BraceAnnotation(Scene):
 
 
 
+# Written on my own, after looking at the example
+class BooleanOperations(Scene):
+    def construct(self):
+        text = MarkupText("<u>Boolean Operations</u>")
+        text.shift(UP*3 + LEFT*3)
+
+        s1 = Ellipse(3, 4.5, color=BLUE, fill_opacity=0.6).shift(LEFT*3)
+        s2 = Ellipse(3, 4.5, color=RED, fill_opacity=0.6).shift(LEFT*2)
+        self.add(text, s1, s2)
+        self.pause(0.5)
+
+        ops = [
+            # I could deduplicate but that would cost flexibility.
+            Intersection(s1, s2, color=GREEN, fill_opacity=0.6),
+            Union(s1, s2, color=ORANGE, fill_opacity=0.6),
+            Exclusion(s1, s2, color=YELLOW, fill_opacity=0.6),
+            Difference(s1, s2, color=PINK, fill_opacity=0.6)
+        ]
+        TR = UP*2.8 + RIGHT*5
+        for i, op in enumerate(ops):
+            self.play(Create(op))
+            self.pause(0.1)
+            self.play(op.animate.scale(0.2).move_to(TR + 2*DOWN*i))
+
+            text = Text(op.__class__.__name__, font_size=30)
+            text.next_to(op, UP)
+            self.play(FadeIn(text))
+
+
+        self.wait()
+
