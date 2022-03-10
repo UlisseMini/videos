@@ -56,3 +56,18 @@ class DifferentRotations(Scene):
             Rotate(right_square, angle=PI),
         )
         self.wait()
+
+
+class HelloText(Scene):
+    def construct(self):
+        # Text       - Compile pure text with pango
+        # Tex        - Compile latex in normal mode (no intro animation)
+        # MathTex    - Compile latex in math mode
+        # MarkupText - Compile text as pango markup, see docs
+        text = MarkupText(f'<b>Hello</b> <tt>World</tt><span fgcolor="{RED}">!</span>')
+        quadratic = MathTex(r"\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}")
+        # quadratic.next_to(text, DOWN)
+
+        g = VGroup(text, quadratic).arrange(DOWN)
+        self.play(Create(g))
+        self.wait()
